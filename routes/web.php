@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Laravel\Socialite\Facades\Socialite;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -22,3 +23,15 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 });
+
+
+Route::get('/auth/redirect', function () {
+    return Socialite::driver('discord')->redirect();
+});
+
+Route::get('/auth/callback', function () {
+    $user = Socialite::driver('discord')->user();
+    dump($user);
+    // $user->token
+});
+

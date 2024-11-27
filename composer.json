@@ -16,6 +16,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/socialite": "^5.16",
         "laravel/tinker": "^2.9",
+        "socialiteproviders/discord": "^4.2",
         "tightenco/ziggy": "^2.0"
     },
     "require-dev": {
