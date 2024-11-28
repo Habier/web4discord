@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SocialLoginController;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -13,7 +14,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 Route::middleware([
     'auth:sanctum',
@@ -26,23 +27,7 @@ Route::middleware([
 });
 
 
-Route::get('/auth/redirect', function () {
-    return Socialite::driver('discord')
-        ->scopes(['identify', 'email', 'guilds'])
-        ->redirect();
-});
+Route::get('/auth/redirect', [SocialLoginController::class, 'redirect']);
 
-Route::get('/auth/callback', function () {
-    $user = Socialite::driver('discord')
-        ->scopes(['identify', 'email', 'guilds'])
-        ->user();
-    dump($user);
-
-    $response = \Illuminate\Support\Facades\Http::withHeaders([
-        'Authorization' => 'Bearer ' . $user->token,
-    ])->get('https://discord.com/api/users/@me/guilds');
-    dd($response->json());
-    dump($user);
-    // $user->token
-});
+Route::get('/auth/callback', [SocialLoginController::class, 'callback']);
 
