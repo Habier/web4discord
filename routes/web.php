@@ -13,6 +13,9 @@ Route::middleware([
     Route::get('/dashboard', \App\Http\Controllers\DashBoardController::class)->name('dashboard');
 
     Route::get('/retorts', [\App\Http\Controllers\RetortController::class, 'index'])->name('retorts.index');
+
+
+    Route::post('/logout', [\Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
 
 
