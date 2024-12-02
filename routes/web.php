@@ -3,7 +3,7 @@
 use App\Http\Controllers\SocialLoginController;
 use Illuminate\Support\Facades\Route;
 
-Route::get(\App\Http\Controllers\LandingController::class)->name('home');
+Route::get('/',\App\Http\Controllers\LandingController::class)->name('home');
 
 Route::middleware([
     'auth:sanctum',
@@ -11,6 +11,8 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', \App\Http\Controllers\DashBoardController::class)->name('dashboard');
+
+    Route::get('/retorts', [\App\Http\Controllers\RetortController::class, 'index'])->name('retorts.index');
 });
 
 
