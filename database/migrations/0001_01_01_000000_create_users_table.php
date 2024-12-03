@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->bigInteger('discord_id')->unique()->nullable(); // Discord ID
+            $table->string('avatar')->nullable(); // Avatar URL
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

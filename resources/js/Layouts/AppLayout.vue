@@ -7,6 +7,7 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import AutoNavLink from "@/Components/AutoNavLink.vue";
 
 defineProps({
     title: String,
@@ -51,6 +52,9 @@ const logout = () => {
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
+                                <AutoNavLink target-route="retorts.index">
+                                    Retorts
+                                </AutoNavLink>
                             </div>
                         </div>
 
