@@ -29,7 +29,8 @@ jobs:
         mkdir -p database
         touch database/database.sqlite
     - name: npm requirements
-      run: npm ci \
+      run: |
+        npm ci
         npm run build
     - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
       env:
