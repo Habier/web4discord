@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RetortRequest;
 use App\Models\Retort;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
@@ -22,7 +24,7 @@ class RetortController extends Controller
         return view('retorts.complete', ['retorts' => $retorts]);
     }
 
-    public function add(Request $request): \Illuminate\Http\RedirectResponse
+    public function add(RetortRequest $request): RedirectResponse
     {
         $post = new Retort();
         $post->user_id = Auth::id();
@@ -35,7 +37,7 @@ class RetortController extends Controller
     /**
      * @param Request $request
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete(Request $request, $id)
     {
