@@ -7,6 +7,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\User as ProviderUser;
 
@@ -34,6 +35,7 @@ class SocialLoginController extends Controller
             'name' => $user->user['global_name'],
             'email' => $user->email,
             'discord_id' => $user->id,
+            'password' => encrypt(Str::random(24)), //TODO: delete this later
         ]);
 
         Auth::login($user);
