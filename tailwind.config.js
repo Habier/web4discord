@@ -17,6 +17,12 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                danger: '#e3342f', // Rojo para errores
+                warning: '#f6993f', // Naranja para advertencias
+                info: '#3490dc', // Azul para información
+                success: '#38c172', // Verde para éxito
+            },
         },
     },
 
