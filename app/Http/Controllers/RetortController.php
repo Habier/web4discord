@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RetortRequest;
 use App\Models\Retort;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,5 +45,24 @@ class RetortController extends Controller
         $post->delete();
 
         return redirect()->route('retorts.index');
+    }
+
+    public function download(Request $request)
+    {
+        $retorts = Retort::all()->shuffle();
+        $latestRetort = Retort::latest()->first();
+
+        $card = "cardName = \"Last Retort: The custom card.\"\n";
+        $card .= "promptList = {\n";
+        foreach ($retorts as $retort) {
+            $card .= "\"$retort->question\",\n";
+        }
+        $card .= '}';
+
+        return response($card)->withHeaders([
+            'Content-Type' => 'text/plain',
+            'Cache-Control' => 'no-store, no-cache',
+            'Content-Disposition' => 'attachment; filename="last_retort_custom_card_' . $latestRetort->created_at->toDateTimeString() . '.txt',
+        ]);
     }
 }

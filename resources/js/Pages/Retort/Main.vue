@@ -20,6 +20,10 @@ function submit() {
     form.reset();
 }
 
+function handleDownload() {
+    router.get(route('retorts.download'));
+}
+
 
 </script>
 
@@ -36,6 +40,12 @@ function submit() {
                         class="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-primary">
                     Submit
                 </button>
+                <a
+                    type="button"
+                    :href="route('retorts.download')"
+                    class="btn mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-primary">
+                    Download
+                </a>
             </form>
 
 
