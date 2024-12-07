@@ -5,43 +5,43 @@ namespace App\Http\Controllers;
 use App\Models\Retort;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 use Inertia\Inertia;
 
 class RetortController extends Controller
 {
-    public function index()
+    public function browse()
     {
         $retorts = Retort::where('user_id', Auth::id())->get();
         return Inertia::render('Retort/Main', ['retorts' => $retorts]);
     }
 
-    public function save(Request $request): \Illuminate\Http\RedirectResponse
+    public function browseAll()
+    {
+        $retorts = Retort::all();
+        return view('retorts.complete', ['retorts' => $retorts]);
+    }
+
+    public function add(Request $request): \Illuminate\Http\RedirectResponse
     {
         $post = new Retort();
         $post->user_id = Auth::id();
         $post->question = $request->question;
 
         $post->save();
-        return redirect()->action('RetortController@index');
+        return redirect()->action([RetortController::class, 'browse']);
     }
 
     /**
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
      */
-    public function delete(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function delete(Request $request, $id)
     {
         $post = Retort::where('user_id', Auth::id())->where('id', $id)->firstOrFail();
         $post->delete();
 
-        return redirect()->action('RetortController@index');
-    }
-
-    public function list()
-    {
-        $retorts = Retort::all();
-        return view('retorts.complete', ['retorts' => $retorts]);
+        return redirect()->route('retorts.index');
     }
 }
