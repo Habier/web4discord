@@ -12,8 +12,7 @@ class RetortController extends Controller
     public function index()
     {
         $retorts = Retort::where('user_id', Auth::id())->get();
-        //return Inertia::render('Retort/Main');
-        return view('retorts.index', ['retorts' => $retorts]);
+        return Inertia::render('Retort/Main', ['retorts' => $retorts]);
     }
 
     public function save(Request $request): \Illuminate\Http\RedirectResponse
