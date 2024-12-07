@@ -31,6 +31,7 @@ function submit() {
                 <textarea id="message" rows="4" v-model="form.question"
                           class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-secondary"
                           placeholder="Type your message here..." aria-label="Message text area"></textarea>
+                <div class="text-danger" v-if="form.errors.question">{{ form.errors.question }}</div>
                 <button type="submit"
                         class="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-blue-600 dark:bg-secondary dark:hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-secondary">
                     Submit

@@ -7,7 +7,6 @@ use App\Models\Retort;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Response;
 use Inertia\Inertia;
 
 class RetortController extends Controller
