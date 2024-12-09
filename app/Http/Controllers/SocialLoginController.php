@@ -15,18 +15,19 @@ class SocialLoginController extends Controller
 {
     public function redirect()
     {
+        session()->flash('url.intended', url()->previous());
+
         return Socialite::driver('discord')
             ->scopes(['identify', 'email', 'guilds'])
             ->redirect();
-
     }
 
 
     public function callback(Request $request)
     {
-        $user = Socialite::driver('discord')
-            ->user();
+        $user = Socialite::driver('discord')->user();
 
+        //We only accept user from the allowed guild
         $this->abortIfNoGuild($user);
 
         $user = User::firstOrCreate([
@@ -39,6 +40,11 @@ class SocialLoginController extends Controller
         ]);
 
         Auth::login($user);
+
+        // Redirecting to the intended place if available
+        $url = session('url.intended');
+        if ($url)
+            return redirect($url);
 
         return redirect()->route('dashboard');
     }
