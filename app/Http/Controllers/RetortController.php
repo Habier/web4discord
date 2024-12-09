@@ -44,7 +44,7 @@ class RetortController extends Controller
         $post = Retort::where('user_id', Auth::id())->where('id', $id)->firstOrFail();
         $post->delete();
 
-        return redirect()->route('retorts.index');
+        return redirect()->route('retorts.browse');
     }
 
     public function download(Request $request)
