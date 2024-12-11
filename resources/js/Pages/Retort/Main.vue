@@ -2,6 +2,8 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import {TrashIcon} from '@heroicons/vue/24/solid'
 import {router, useForm} from "@inertiajs/vue3";
+import {Button} from "primevue";
+import {ref} from "vue";
 
 const props = defineProps({
     retorts: Array
@@ -11,7 +13,10 @@ const form = useForm({
     question: null
 });
 
+const trashLoading = ref(-1);
+
 function handleDelete(id) {
+    this.trashLoading = id;
     router.delete(route('retorts.delete', id));
 }
 
@@ -36,26 +41,18 @@ function handleDownload() {
                           class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-secondary"
                           placeholder="Type your message here..." aria-label="Message text area"></textarea>
                 <div class="text-danger" v-if="form.errors.question">{{ form.errors.question }}</div>
-                <button type="submit"
-                        class="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-primary">
-                    Submit
-                </button>
-                <a
-                    type="button"
-                    :href="route('retorts.download')"
-                    class="btn mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-primary">
-                    Download
-                </a>
+                <Button label="Submit" class="mr-4" type="submit" :loading="form.processing"/>
+                <Button as="a" label="Download" :href="route('retorts.download')" target="_blank" rel="noopener"/>
             </form>
 
-
-            <div>
+            <div class="mt-2">
 
                 <div v-for="retort in retorts" class="flex">
                     <div class="w-1/12 flex items-center">
-                        <button class=" m-auto" @click="handleDelete(retort.id)">
+                        <Button class=" m-auto" @click="handleDelete(retort.id)" ref="trash-{{retort.id}}"
+                                :loading="trashLoading===retort.id">
                             <TrashIcon class="size-6 text-danger"/>
-                        </button>
+                        </Button>
                     </div>
                     <div class="w-11/12">{{ retort.question }}</div>
                 </div>

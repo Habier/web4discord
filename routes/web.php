@@ -12,7 +12,7 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', \App\Http\Controllers\DashBoardController::class)->name('dashboard');
 
-    Route::get('/retorts', [\App\Http\Controllers\RetortController::class, 'browse'])->name('retorts.index');
+    Route::get('/retorts', [\App\Http\Controllers\RetortController::class, 'browse'])->name('retorts.browse');
     Route::post('/retorts', [\App\Http\Controllers\RetortController::class, 'add'])->name('retorts.add');
     Route::delete('/retort/{id}', [\App\Http\Controllers\RetortController::class, 'delete'])->name('retorts.delete');
     Route::get('/retorts/download', [\App\Http\Controllers\RetortController::class, 'download'])->name('retorts.download');

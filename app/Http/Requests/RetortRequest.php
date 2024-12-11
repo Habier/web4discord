@@ -22,7 +22,7 @@ class RetortRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'question' => 'required|string|min:5|unique:retorts,question',
+            'question' => 'required|string|min:5|max:255|unique:retorts,question',
         ];
     }
 }
