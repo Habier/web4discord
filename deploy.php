@@ -6,6 +6,7 @@ require __DIR__ . '/vendor/autoload.php';
 require 'recipe/laravel.php';
 
 use Dotenv\Dotenv;
+ini_set('variables_order', 'EGPCS');
 
 //Avoid loading from .env if deploy.yml is involved
 if (!($_ENV['DEPLOY_HOSTNAME'] ?? null)) {
