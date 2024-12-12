@@ -29,6 +29,7 @@ task('npm-build', function () {
     cd('{{release_path}}');
     run('npm install');
     run('npm run build');
+    run("php -r 'opcache_reset();'");
 });
 
 after('deploy:vendors', 'npm-build');
