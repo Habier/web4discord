@@ -26,7 +26,7 @@ after('deploy:failed', 'deploy:unlock');
 
 // Run after code deployment
 task('npm-build', function () {
-    cd(getenv('DEPLOY_PATH') . "/current");
+    cd('{{release_path}}');
     run('npm install');
     run('npm run build');
 });
