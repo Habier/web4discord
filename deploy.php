@@ -31,4 +31,4 @@ task('npm-build', function () {
     run('npm run build');
 });
 
-after('deploy:update_code', 'npm-build');
+after('deploy:vendors', 'npm-build');
