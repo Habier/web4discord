@@ -22,3 +22,13 @@ host(getenv('DEPLOY_HOSTNAME'))
 // Hooks
 
 after('deploy:failed', 'deploy:unlock');
+
+
+// Run after code deployment
+task('npm-build', function () {
+    cd(getenv('DEPLOY_PATH') . "/current");
+    run('npm install');
+    run('npm run build');
+});
+
+after('deploy:update_code', 'npm-build');
