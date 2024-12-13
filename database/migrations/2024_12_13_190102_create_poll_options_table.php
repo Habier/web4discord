@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('poll_options', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Poll::class);
+            $table->string('title');
             $table->timestamps();
         });
     }

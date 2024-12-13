@@ -7,16 +7,12 @@ use App\Models\Poll;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia;
-use Inertia\Testing\AssertableInertia as Assert;
 
 class PollControllerTest extends \Tests\TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * A basic test example.
-     */
-    public function test_browse(): void
+    public function test_browse_poll(): void
     {
         $user = User::factory()->create();
         $pollQuantity = 30;
@@ -33,4 +29,21 @@ class PollControllerTest extends \Tests\TestCase
         );
 
     }
+
+    public function test_read_poll()
+    {
+        $this->markTestSkipped('TODDO');
+    }
+
+    public function test_add_poll()
+    {
+        $this->markTestSkipped('TODDO');
+    }
+
+    public function test_delete_poll()
+    {
+        $this->markTestSkipped('TODDO');
+    }
+
+
 }
