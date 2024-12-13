@@ -17,6 +17,8 @@ Route::middleware([
     Route::delete('/retort/{id}', [\App\Http\Controllers\RetortController::class, 'delete'])->name('retorts.delete');
     Route::get('/retorts/download', [\App\Http\Controllers\RetortController::class, 'download'])->name('retorts.download');
 
+    Route::get('/polls', [\App\Http\Controllers\PollController::class, 'browse'])->name('polls.browse');
+
 
     Route::post('/logout', [\Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });

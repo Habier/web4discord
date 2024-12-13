@@ -55,6 +55,9 @@ const logout = () => {
                                 <AutoNavLink target-route="retorts.browse">
                                     Retorts
                                 </AutoNavLink>
+                                <AutoNavLink target-route="polls.browse">
+                                    Polls
+                                </AutoNavLink>
                             </div>
                         </div>
 
