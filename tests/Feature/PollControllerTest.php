@@ -23,7 +23,7 @@ class PollControllerTest extends \Tests\TestCase
         $response = $this->get(route('polls.index'))->assertStatus(200);
 
         $response->assertInertia(fn(AssertableInertia $page) => $page
-            ->component('Poll/Browse')
+            ->component('Poll/Index')
             ->where('polls.total', $pollQuantity)
             ->etc()
         );
@@ -37,7 +37,12 @@ class PollControllerTest extends \Tests\TestCase
         $post = Poll::factory()->create(['user_id' => $user->id]);
 
 
-        $this->markTestSkipped('TODDO');
+        $response = $this->get(route('polls.show', $post))->assertStatus(200);
+
+        $response->assertInertia(fn(AssertableInertia $page) => $page
+            ->component('Poll/Show')
+            ->where('poll.id', $post->id)
+        );
     }
 
     public function test_add_poll()

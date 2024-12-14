@@ -21,7 +21,7 @@ class RetortControllerTest extends TestCase
 
         $response
             ->assertOk()
-            ->assertInertia(fn($page) => $page->component('Retort/Main')
+            ->assertInertia(fn($page) => $page->component('Retort/Index')
                 ->has('retorts', 3)
             );
     }

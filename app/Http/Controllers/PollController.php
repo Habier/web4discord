@@ -12,12 +12,14 @@ class PollController extends Controller
     {
         $polls = Poll::paginate(20);
 
-        return Inertia::render('Poll/Browse', ['polls' => $polls]);
+        return Inertia::render('Poll/Index', ['polls' => $polls]);
     }
 
     public function show(int $id)
     {
         $poll = Poll::where('id', $id)->firstOrFail();
+
+        return Inertia::render('Poll/Show', ['poll' => $poll]);
     }
 
     public function destroy(int $id)
