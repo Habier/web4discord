@@ -8,19 +8,19 @@ use Inertia\Inertia;
 
 class PollController extends Controller
 {
-    public function browse()
+    public function index()
     {
         $polls = Poll::paginate(20);
 
         return Inertia::render('Poll/Browse', ['polls' => $polls]);
     }
 
-    public function read(int $id)
+    public function show(int $id)
     {
         $poll = Poll::where('id', $id)->firstOrFail();
     }
 
-    public function delete(int $id)
+    public function destroy(int $id)
     {
         $poll = Poll::where('id', $id)->firstOrFail();
     }

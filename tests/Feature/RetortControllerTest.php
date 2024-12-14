@@ -17,7 +17,7 @@ class RetortControllerTest extends TestCase
         $user = User::factory()->create();
         Retort::factory()->for($user)->count(3)->create();
 
-        $response = $this->actingAs($user)->get(route('retorts.browse'));
+        $response = $this->actingAs($user)->get(route('retorts.index'));
 
         $response
             ->assertOk()
@@ -33,9 +33,9 @@ class RetortControllerTest extends TestCase
             'question' => 'What is the meaning of life?',
         ];
 
-        $response = $this->actingAs($user)->post(route('retorts.add'), $data);
+        $response = $this->actingAs($user)->post(route('retorts.store'), $data);
 
-        $response->assertRedirect(route('retorts.browse'));
+        $response->assertRedirect(route('retorts.index'));
         $this->assertDatabaseHas('retorts', [
             'user_id' => $user->id,
             'question' => $data['question'],
@@ -47,9 +47,9 @@ class RetortControllerTest extends TestCase
         $user = User::factory()->create();
         $retort = Retort::factory()->for($user)->create();
 
-        $response = $this->actingAs($user)->delete(route('retorts.delete', $retort));
+        $response = $this->actingAs($user)->delete(route('retorts.destroy', $retort));
 
-        $response->assertRedirect(route('retorts.browse'));
+        $response->assertRedirect(route('retorts.index'));
         $this->assertDatabaseMissing('retorts', ['id' => $retort->id]);
     }
 

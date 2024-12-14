@@ -52,10 +52,10 @@ const logout = () => {
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
-                                <AutoNavLink target-route="retorts.browse">
+                                <AutoNavLink target-route="retorts.index">
                                     Retorts
                                 </AutoNavLink>
-                                <AutoNavLink target-route="polls.browse">
+                                <AutoNavLink target-route="polls.index">
                                     Polls
                                 </AutoNavLink>
                             </div>
