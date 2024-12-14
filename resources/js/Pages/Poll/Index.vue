@@ -2,7 +2,7 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
-import { usePage, router } from '@inertiajs/vue3';
+import {usePage, router, Link} from '@inertiajs/vue3';
 
 const props = defineProps({
     polls: Object
@@ -10,7 +10,7 @@ const props = defineProps({
 
 function onPageChange(event) {
     const page = event.page + 1;
-    router.get(usePage().url, { page });
+    router.get(usePage().url, {page});
 }
 </script>
 
@@ -25,7 +25,14 @@ function onPageChange(event) {
                    @page="onPageChange"
                    tableStyle="min-width: 50rem">
             <Column field="user.name" header="User" style="width: 25%"></Column>
-            <Column field="title" header="Title" style="width: 50%"></Column>
+            <Column field="title" header="Title" style="width: 50%">
+                <template #body="item">
+                    <Link :href="route('polls.show',item.data.id)">
+                        {{ item.data.title }}
+                    </Link>
+                </template>
+
+            </Column>
             <Column field="created_at" header="Date" style="width: 25%"></Column>
         </DataTable>
     </AppLayout>
