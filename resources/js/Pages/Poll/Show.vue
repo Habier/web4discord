@@ -14,6 +14,7 @@ function onPageChange(event) {
 
 <template>
     <AppLayout :title="poll.title">
+
     </AppLayout>
 </template>
 
