@@ -12,6 +12,10 @@ class PollSeeder extends Seeder
      */
     public function run(): void
     {
-        Poll::factory()->count(30)->create(['user_id' => 1]);
+        Poll::factory()
+            ->count(30)
+            ->hasOptions(4)
+            ->create(['user_id' => 1]);
+
     }
 }

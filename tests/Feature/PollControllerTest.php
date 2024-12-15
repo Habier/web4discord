@@ -34,25 +34,42 @@ class PollControllerTest extends \Tests\TestCase
     {
         $this->actingAs($user = User::factory()->create());
 
-        $post = Poll::factory()->create(['user_id' => $user->id]);
+        $poll = Poll::factory()->hasOptions(4)->create(['user_id' => $user->id]);
 
+        //Check if page loaded without problems
+        $response = $this->get(route('polls.show', $poll))->assertStatus(200);
 
-        $response = $this->get(route('polls.show', $post))->assertStatus(200);
-
+        //check if values are passed correctly
         $response->assertInertia(fn(AssertableInertia $page) => $page
             ->component('Poll/Show')
-            ->where('poll.id', $post->id)
+            ->where('poll.id', $poll->id)
+            ->has('poll.options', 4)
+            ->etc()
         );
+    }
+
+    public function test_send_vote()
+    {
+        $this->actingAs($user = User::factory()->create());
+
+        $poll = Poll::factory()->hasOptions(4)->create(['user_id' => $user->id]);
+
+        //Check if properly redirected
+        $this->post(route('polls.vote', $poll), ['option' => $poll->options->first()->id])
+            ->assertRedirect(route('polls.show', $poll));
+
+        //check if the vote is registered
+        $this->assertDatabaseCount('poll_votes', 1);
     }
 
     public function test_add_poll()
     {
-        $this->markTestSkipped('TODDO');
+        $this->markTestSkipped('TODO');
     }
 
     public function test_delete_poll()
     {
-        $this->markTestSkipped('TODDO');
+        $this->markTestSkipped('TODO');
     }
 
 
