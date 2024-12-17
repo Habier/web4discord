@@ -10,7 +10,7 @@ class PollController extends Controller
 {
     public function index()
     {
-        $polls = Poll::with('options')->paginate(20);
+        $polls = Poll::with('options', 'user')->paginate(20);
 
         return Inertia::render('Poll/Index', ['polls' => $polls]);
     }
