@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->foreignIdFor(\App\Models\User::class);
             $table->foreignIdFor(\App\Models\Poll::class);
             $table->timestamps();
+            $table->unique(['user_id', 'poll_id']);
         });
     }
 

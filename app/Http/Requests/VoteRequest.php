@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class VoteRequest extends FormRequest
 {
@@ -14,6 +15,13 @@ class VoteRequest extends FormRequest
         return true;
     }
 
+    public function prepareForValidation(): void
+    {
+        $this->merge([
+            'vote' => $this->route('id')
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -21,8 +29,19 @@ class VoteRequest extends FormRequest
      */
     public function rules(): array
     {
+
+        $id = $this->route('id');
         return [
-            //
+            'option' => [
+                'required',
+                'integer',
+                "exists:poll_options,id,poll_id,{$id}",
+            ],
+            'vote' => [
+                'required',
+                'integer',
+                Rule::unique('votes', 'poll_id')->where('user_id', $this->user()->id),
+            ]
         ];
     }
 }

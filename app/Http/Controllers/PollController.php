@@ -29,13 +29,13 @@ class PollController extends Controller
         //TODO needs gating
 
         $poll = Poll::where('id', $id)->firstOrFail();
-
         $poll->delete();
+
+        return redirect()->route('polls.index');
     }
 
     public function vote(int $id, VoteRequest $request)
     {
-        //TODO: needs preventing multiple voting
         $poll = Poll::where('id', $id)->firstOrFail();
         $poll->votes()->create(['user_id' => auth()->id()]);
 

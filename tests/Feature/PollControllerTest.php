@@ -6,6 +6,7 @@ namespace Tests\Feature;
 use App\Models\Poll;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
 use Inertia\Testing\AssertableInertia;
 
 class PollControllerTest extends \Tests\TestCase
@@ -53,23 +54,45 @@ class PollControllerTest extends \Tests\TestCase
         $this->actingAs($user = User::factory()->create());
 
         $poll = Poll::factory()->hasOptions(4)->create(['user_id' => $user->id]);
+        $pollId = $poll->id;
+        $optionId = $poll->options->first()->id;
 
         //Check if properly redirected
-        $this->post(route('polls.vote', $poll), ['option' => $poll->options->first()->id])
-            ->assertRedirect(route('polls.show', $poll));
+        $this->post(route('polls.vote', $pollId), ['option' => $optionId])
+            ->assertRedirect(route('polls.show', $poll))
+            ->assertSessionHasNoErrors();
 
         //check if the vote is registered
-        $this->assertDatabaseCount('poll_votes', 1);
+        $this->assertDatabaseCount('votes', 1);
+
+        //check that voting twice is impossible
+        $this->post(route('polls.vote', $pollId), ['option' => $optionId])
+            ->assertSessionHasErrors(['vote']);
+
     }
 
     public function test_add_poll()
     {
-        $this->markTestSkipped('TODO');
+        $this->markTestIncomplete();
+        /*
+        $this->actingAs($user = User::factory()->create());
+        $poll = Poll::factory()->hasOptions(4)->make(['user_id' => $user->id]);
+
+        $this->post(route('polls.create', $poll), $poll->toArray());
+        $this->assertDatabaseCount('polls', 1);
+        */
     }
 
     public function test_delete_poll()
     {
-        $this->markTestSkipped('TODO');
+        $this->actingAs($user = User::factory()->create());
+
+        $poll = Poll::factory()->hasOptions(4)->create(['user_id' => $user->id]);
+
+        $this->delete(route('polls.destroy', $poll))
+            ->assertRedirect(route('polls.index'));
+
+        $this->assertDatabaseCount('votes', 0);
     }
 
 
