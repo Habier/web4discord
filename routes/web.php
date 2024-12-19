@@ -23,7 +23,7 @@ Route::middleware([
 });
 
 
-Route::get('/auth/redirect', [SocialLoginController::class, 'redirect'])->name('login');
+Route::get('/discord/login', [SocialLoginController::class, 'redirect'])->name('login');
 
 Route::get('/auth/callback', [SocialLoginController::class, 'callback']);
 
