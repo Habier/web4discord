@@ -15,7 +15,7 @@ Route::middleware([
     Route::get('/retorts/download', [\App\Http\Controllers\RetortController::class, 'download'])->name('retorts.download');
     Route::resource('retorts', \App\Http\Controllers\RetortController::class);
 
-    Route::post("/polls/{id}/vote", [\App\Http\Controllers\PollController::class, 'vote'])->name('polls.vote');
+    Route::post("/polls/{poll}/vote", [\App\Http\Controllers\PollController::class, 'vote'])->name('polls.vote');
     Route::resource('polls', \App\Http\Controllers\PollController::class);
 
 

@@ -4,6 +4,7 @@
 namespace Tests\Feature;
 
 use App\Models\Poll;
+use App\Models\PollOption;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
@@ -54,11 +55,11 @@ class PollControllerTest extends \Tests\TestCase
         $this->actingAs($user = User::factory()->create());
 
         $poll = Poll::factory()->hasOptions(4)->create(['user_id' => $user->id]);
-        $pollId = $poll->id;
+
         $optionId = $poll->options->first()->id;
 
         //Check if properly redirected
-        $this->post(route('polls.vote', $pollId), ['option' => $optionId])
+        $this->post(route('polls.vote', $poll), ['option' => $optionId])
             ->assertRedirect(route('polls.show', $poll))
             ->assertSessionHasNoErrors();
 
@@ -66,21 +67,21 @@ class PollControllerTest extends \Tests\TestCase
         $this->assertDatabaseCount('votes', 1);
 
         //check that voting twice is impossible
-        $this->post(route('polls.vote', $pollId), ['option' => $optionId])
+        $this->post(route('polls.vote', $poll->id), ['option' => $optionId])
             ->assertSessionHasErrors(['vote']);
 
     }
 
     public function test_add_poll()
     {
-        $this->markTestIncomplete();
-        /*
         $this->actingAs($user = User::factory()->create());
-        $poll = Poll::factory()->hasOptions(4)->make(['user_id' => $user->id]);
+        $data = Poll::factory()->make(['user_id' => $user->id])->toArray();
+        $data['options'] = PollOption::factory()->count(4)->make()->pluck('title')->toArray();
+        $this->post(route('polls.store'), $data)
+            ->assertSessionHasNoErrors()
+            ->assertRedirect(route('polls.index'));
 
-        $this->post(route('polls.create', $poll), $poll->toArray());
         $this->assertDatabaseCount('polls', 1);
-        */
     }
 
     public function test_delete_poll()

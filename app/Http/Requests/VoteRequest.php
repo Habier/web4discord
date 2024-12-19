@@ -18,7 +18,7 @@ class VoteRequest extends FormRequest
     public function prepareForValidation(): void
     {
         $this->merge([
-            'vote' => $this->route('id')
+            'vote' => $this->route('poll')->id
         ]);
     }
 
@@ -29,8 +29,7 @@ class VoteRequest extends FormRequest
      */
     public function rules(): array
     {
-
-        $id = $this->route('id');
+        $id = $this->vote;
         return [
             'option' => [
                 'required',

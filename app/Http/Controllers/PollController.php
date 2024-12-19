@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PollRequest;
 use App\Http\Requests\VoteRequest;
 use App\Models\Poll;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class PollController extends Controller
@@ -15,29 +18,40 @@ class PollController extends Controller
         return Inertia::render('Poll/Index', ['polls' => $polls]);
     }
 
-    public function show(int $id)
+    public function show(Poll $poll)
     {
-        $poll = Poll::with('options')->where('id', $id)->firstOrFail();
-
+        $poll->load('options');
         $alreadyVoted = (boolean)$poll->votes()->where('user_id', auth()->id())->count();
 
         return Inertia::render('Poll/Show', ['poll' => $poll, 'alreadyVoted' => $alreadyVoted]);
     }
 
-    public function destroy(int $id)
+    public function store(PollRequest $request)
     {
-        //TODO needs gating
+        $poll = $request->user()->polls()->create($request->validated());
 
-        $poll = Poll::where('id', $id)->firstOrFail();
+        $options = $poll->options->map(function ($item) {
+            return ['title' => $item];
+        });
+
+        $poll->options()->createMany($options);
+
+        return redirect()->route('polls.index');
+    }
+
+    public function destroy(Request $request, Poll $poll)
+    {
+        Gate::authorize('delete', $poll);
+
+        $request->user()->cannot('delete', $poll);
         $poll->delete();
 
         return redirect()->route('polls.index');
     }
 
-    public function vote(int $id, VoteRequest $request)
+    public function vote(VoteRequest $request, Poll $poll)
     {
-        $poll = Poll::where('id', $id)->firstOrFail();
-        $poll->votes()->create(['user_id' => auth()->id()]);
+        $poll->votes()->create(['user_id' => $request->user()->id]);
 
         return redirect()->route('polls.show', $poll);
     }
