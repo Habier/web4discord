@@ -12,10 +12,10 @@ use Inertia\Inertia;
 
 class RetortController extends Controller
 {
-    public function browse()
+    public function index()
     {
         $retorts = Retort::where('user_id', Auth::id())->get();
-        return Inertia::render('Retort/Main', ['retorts' => $retorts]);
+        return Inertia::render('Retort/Index', ['retorts' => $retorts]);
     }
 
     public function browseAll()
@@ -24,14 +24,14 @@ class RetortController extends Controller
         return view('retorts.complete', ['retorts' => $retorts]);
     }
 
-    public function add(RetortRequest $request): RedirectResponse
+    public function store(RetortRequest $request): RedirectResponse
     {
         $post = new Retort();
         $post->user_id = Auth::id();
         $post->question = $request->question;
 
         $post->save();
-        return redirect()->action([RetortController::class, 'browse']);
+        return redirect()->action([RetortController::class, 'index']);
     }
 
     /**
@@ -39,12 +39,12 @@ class RetortController extends Controller
      * @param $id
      * @return RedirectResponse
      */
-    public function delete(Request $request, $id)
+    public function destroy(Request $request, $id)
     {
         $post = Retort::where('user_id', Auth::id())->where('id', $id)->firstOrFail();
         $post->delete();
 
-        return redirect()->route('retorts.browse');
+        return redirect()->route('retorts.index');
     }
 
     public function download(Request $request)

@@ -17,11 +17,11 @@ const trashLoading = ref(-1);
 
 function handleDelete(id) {
     this.trashLoading = id;
-    router.delete(route('retorts.delete', id));
+    router.delete(route('retorts.destroy', id));
 }
 
 function submit() {
-    form.post(route('retorts.add'), form);
+    form.post(route('retorts.store'), form);
     form.reset();
 }
 

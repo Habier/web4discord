@@ -19,7 +19,7 @@
         <div class="col-md-12">
             @foreach($retorts as $retort)
                 <div class="row" style="margin-bottom: 0.66em;">
-                    <div class="col-md-1">{!! htmlHelper::deleteButton(route('retorts.delete',['id'=>$retort->id]))!!}</div>
+                    <div class="col-md-1">{!! htmlHelper::deleteButton(route('retorts.destroy',['id'=>$retort->id]))!!}</div>
                     <div class="col-md-11">{{$retort->question}}</div>
                 </div>
             @endforeach

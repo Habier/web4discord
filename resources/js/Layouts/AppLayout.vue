@@ -34,8 +34,8 @@ const logout = () => {
 
         <Banner />
 
-        <div class="min-h-screen bg-gray-100">
-            <nav class="bg-white border-b border-gray-100">
+        <div class="min-h-screen">
+            <nav>
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
@@ -52,8 +52,11 @@ const logout = () => {
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
-                                <AutoNavLink target-route="retorts.browse">
+                                <AutoNavLink target-route="retorts.index">
                                     Retorts
+                                </AutoNavLink>
+                                <AutoNavLink target-route="polls.index">
+                                    Polls
                                 </AutoNavLink>
                             </div>
                         </div>
