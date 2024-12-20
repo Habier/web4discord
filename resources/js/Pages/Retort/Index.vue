@@ -3,7 +3,11 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import {TrashIcon} from '@heroicons/vue/24/solid'
 import {router, useForm} from "@inertiajs/vue3";
 import {Button} from "primevue";
+import Textarea from 'primevue/textarea';
+import {useConfirm} from "primevue/useconfirm";
 import {ref} from "vue";
+
+const confirm = useConfirm();
 
 const props = defineProps({
     retorts: Array
@@ -16,8 +20,27 @@ const form = useForm({
 const trashLoading = ref(-1);
 
 function handleDelete(id) {
-    this.trashLoading = id;
-    router.delete(route('retorts.destroy', id));
+    confirm.require({
+        message: 'Are you sure you want to proceed?',
+        header: 'Confirmation',
+        icon: 'pi pi-exclamation-triangle',
+        rejectProps: {
+            label: 'Cancel',
+            severity: 'secondary',
+            outlined: true
+        },
+        acceptProps: {
+            label: 'Accept'
+        },
+        accept: () => {
+            this.trashLoading = id;
+            router.delete(route('retorts.destroy', id));
+            //toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+        },
+        reject: () => {
+            //toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+        }
+    });
 }
 
 function submit() {
@@ -37,24 +60,27 @@ function handleDownload() {
         <div class="row mx-auto p-6">
             <form @submit.prevent="submit">
                 <label for="message" class="block text-gray-700 dark:text-gray-300 mb-2">Question</label>
-                <textarea id="message" rows="4" v-model="form.question"
-                          class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-secondary"
-                          placeholder="Type your message here..." aria-label="Message text area"></textarea>
+                <Textarea class="w-full" v-model="form.question" rows="5" cols="30"/>
                 <div class="text-danger" v-if="form.errors.question">{{ form.errors.question }}</div>
-                <Button label="Submit" class="mr-4" type="submit" :loading="form.processing"/>
-                <Button as="a" label="Download" :href="route('retorts.download')" target="_blank" rel="noopener"/>
+
+                <div class="flex justify-center items-center space-x-4">
+                    <Button label="Submit" class="mr-4" type="submit" :loading="form.processing"/>
+                    <Button as="a" label="Download" :href="route('retorts.download')" target="_blank" rel="noopener"/>
+                </div>
             </form>
 
             <div class="mt-2">
 
-                <div v-for="retort in retorts" class="flex">
+                <div v-for="retort in retorts" class="flex mb-2">
                     <div class="w-1/12 flex items-center">
                         <Button class=" m-auto" @click="handleDelete(retort.id)" ref="trash-{{retort.id}}"
                                 :loading="trashLoading===retort.id">
                             <TrashIcon class="size-6 text-danger"/>
                         </Button>
                     </div>
-                    <div class="w-11/12">{{ retort.question }}</div>
+                    <div class="w-11/12 flex items-center">
+                        {{ retort.question }}
+                    </div>
                 </div>
 
             </div>

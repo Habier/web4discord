@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "@heroicons/vue": "^2.2.0",
+        "@primevue/forms": "^4.2.5",
         "@primevue/themes": "^4.2.4",
         "primevue": "^4.2.4"
     }
