@@ -2,6 +2,7 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+import {Button} from "primevue";
 import {usePage, router, Link} from '@inertiajs/vue3';
 
 const props = defineProps({
@@ -16,6 +17,9 @@ function onPageChange(event) {
 
 <template>
     <AppLayout title="Polls">
+        <div class="w-full">
+            <Button as="a" label="Create" :href="route('polls.create')" />
+        </div>
         <DataTable :value="polls.data"
                    :lazy="true"
                    :paginator="true"
