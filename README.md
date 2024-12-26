@@ -106,4 +106,4 @@ Use the card-making system to create and categorize cards for Last Retort. Expor
 - [Last Retort](https://example.com) for inspiration and game mechanics.
 
 ---
-For any questions or issues, feel free to open an [issue](https://github.com/your-username/discord-intranet/issues).
+For any questions or issues, feel free to open an [issue](https://github.com/Habier/web4discord/issues).
