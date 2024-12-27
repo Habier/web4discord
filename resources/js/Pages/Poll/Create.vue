@@ -13,7 +13,7 @@ let form = useForm({
 let loading = false;
 
 function submit() {
-    form.post(route("polls.store", props.poll.id));
+    form.post(route("polls.store"));
 }
 
 function handleDelete(i) {
@@ -21,8 +21,7 @@ function handleDelete(i) {
         form.options.splice(i, 1);
 }
 
-function handleAddOption()
-{
+function handleAddOption() {
     form.options.push("")
 }
 </script>

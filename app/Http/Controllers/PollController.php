@@ -35,9 +35,9 @@ class PollController extends Controller
     {
         $poll = $request->user()->polls()->create($request->validated());
 
-        $options = $poll->options->map(function ($item) {
+        $options = array_map(function ($item) {
             return ['title' => $item];
-        });
+        }, $request->options);
 
         $poll->options()->createMany($options);
 

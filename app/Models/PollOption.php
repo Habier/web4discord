@@ -9,4 +9,6 @@ class PollOption extends Model
 {
     /** @use HasFactory<\Database\Factories\PollOptionFactory> */
     use HasFactory;
+
+    protected $guarded = ['id'];
 }

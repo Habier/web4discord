@@ -32,6 +32,13 @@ class PollControllerTest extends \Tests\TestCase
 
     }
 
+    public function test_load_create()
+    {
+        $this->actingAs($user = User::factory()->create());
+        $response = $this->get(route('polls.create'))->assertStatus(200);
+
+    }
+
     public function test_read_poll()
     {
         $this->actingAs($user = User::factory()->create());
@@ -82,6 +89,7 @@ class PollControllerTest extends \Tests\TestCase
             ->assertRedirect(route('polls.index'));
 
         $this->assertDatabaseCount('polls', 1);
+        $this->assertDatabaseCount('poll_options', 4);
     }
 
     public function test_delete_poll()
