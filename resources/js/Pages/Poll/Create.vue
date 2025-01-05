@@ -28,21 +28,21 @@ function handleAddOption() {
 
 <template>
     <AppLayout title="Create poll">
-        <h1>Create a new Poll</h1>
+        <h1>{{$t("Create a new Poll")}}</h1>
 
         <div id="poll_options">
             <form @submit.prevent="submit">
-                <InputText class="w-full mb-2" type="text" v-model="form.title" placeholder="Title of the poll"
+                <InputText class="w-full mb-2" type="text" v-model="form.title" :placeholder='$t("Title of the poll")'
                            required/>
 
                 <Textarea id="poll-description" class="w-full"
                           v-model="form.description"
-                          placeholder="Write your description"
+                          :placeholder='$t("Write your description")'
                           rows="5" cols="30"/>
                 <div class="w-full">
                     <ul class="w-full">
                         <li v-for="(option,i) in form.options" class="mb-2 flex">
-                            <InputText class="w-7/12" type="text" v-model="form.options[i]" placeholder="Option text"/>
+                            <InputText class="w-7/12" type="text" v-model="form.options[i]" :placeholder='$t("Option text")'/>
                             <div class="w-1/12">
                                 <Button v-if="i>1" class="ml-2 m-auto" @click="handleDelete(i)">
                                     <TrashIcon class="size-6 text-danger"/>
@@ -60,7 +60,7 @@ function handleAddOption() {
                         </li>
                     </ul>
                 </div>
-                <Button type="submit" label="Submit" :loading="loading"/>
+                <Button type="submit" :label='$t("Submit")' :loading="loading"/>
             </form>
         </div>
     </AppLayout>

@@ -44,7 +44,7 @@ function submit() {
                     </div>
                 </div>
 
-                <Button type="submit" label="Submit" :disabled="alreadyVoted" :loading="loading"/>
+                <Button type="submit" :label='$t("Submit")' :disabled="alreadyVoted" :loading="loading"/>
             </form>
         </div>
     </AppLayout>

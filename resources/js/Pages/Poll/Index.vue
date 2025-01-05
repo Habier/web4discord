@@ -18,7 +18,7 @@ function onPageChange(event) {
 <template>
     <AppLayout title="Polls">
         <div class="w-full">
-            <Button as="a" label="Create" :href="route('polls.create')" />
+            <Button as="a" :label='$t("Create")' :href="route('polls.create')" />
         </div>
         <DataTable :value="polls.data"
                    :lazy="true"
