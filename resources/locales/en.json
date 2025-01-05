@@ -1,18 +1,22 @@
 {
     "Accept": "Accept",
+    "Add more options": "Add more options",
     "Are you sure you want to proceed?": "Are you sure you want to proceed?",
     "Cancel": "Cancel",
     "Confirmation": "Confirmation",
     "Create": "Create",
     "Create a new Poll": "Create a new Poll",
     "Dashboard": "Dashboard",
+    "Date": "Date",
     "Download": "Download",
     "Option text": "Option Text",
     "Polls": "Polls",
     "Question": "Question",
     "Retorts": "Retorts",
     "Submit": "Submit",
+    "Title": "Title",
     "Title of the poll": "Title of the poll",
+    "User": "User",
     "Write your description": "Write your description",
     "hello": "hello"
 }

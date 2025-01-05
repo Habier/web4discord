@@ -28,8 +28,8 @@ function onPageChange(event) {
                    :first="(polls.current_page - 1) * polls.per_page"
                    @page="onPageChange"
                    tableStyle="min-width: 50rem">
-            <Column field="user.name" header="User" style="width: 25%"></Column>
-            <Column field="title" header="Title" style="width: 50%">
+            <Column field="user.name" :header='$t("User")' style="width: 25%"></Column>
+            <Column field="title" :header='$t("Title")' style="width: 50%">
                 <template #body="item">
                     <Link :href="route('polls.show',item.data.id)">
                         {{ item.data.title }}
@@ -37,7 +37,7 @@ function onPageChange(event) {
                 </template>
 
             </Column>
-            <Column field="created_at" header="Date" style="width: 25%"></Column>
+            <Column field="created_at" :header='$t("Date")' style="width: 25%"></Column>
         </DataTable>
     </AppLayout>
 </template>

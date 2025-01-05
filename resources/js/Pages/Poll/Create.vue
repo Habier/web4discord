@@ -51,7 +51,7 @@ function handleAddOption() {
                         </li>
 
                         <li class="mb-2 flex">
-                            <InputText class="w-7/12" type="text" placeholder="Add more options" disabled/>
+                            <InputText class="w-7/12" type="text" :placeholder='$t("Add more options")' disabled/>
                             <div class="w-1/12">
                                 <Button class="ml-2 m-auto" @click="handleAddOption()">
                                     <PlusIcon class="size-6 text-info"/>

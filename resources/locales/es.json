@@ -1,18 +1,22 @@
 {
     "Accept": "Aceptar",
+    "Add more options": "Añadir más opciones",
     "Are you sure you want to proceed?": "¿Seguro deseas continuar?",
     "Cancel": "Cancelar",
     "Confirmation": "Confirmación",
     "Create": "Crear",
     "Create a new Poll": "Crea una nueva encuesta",
     "Dashboard": "Inicio",
+    "Date": "Fecha",
     "Download": "Descargar",
     "Option text": "Texto para la opción",
     "Polls": "Encuestas",
     "Question": "Pregunta",
     "Retorts": "Retorts",
     "Submit": "Enviar",
+    "Title": "Título",
     "Title of the poll": "Título de la encuesta",
+    "User": "Usuario",
     "Write your description": "Escribe una descripción",
     "hello": "hola"
 }
