@@ -18,11 +18,6 @@ const form = useForm({
     question: null
 });
 
-function t()
-{
-    return i18n.global.t()
-}
-
 const trashLoading = ref(-1);
 
 function handleDelete(id) {
@@ -50,7 +45,7 @@ function handleDelete(id) {
 }
 
 function submit() {
-    form.post(route('retorts.store'), form);
+    form.post(route('retorts.store'));
     form.reset();
 }
 
