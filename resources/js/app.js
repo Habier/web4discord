@@ -9,6 +9,7 @@ import {createInertiaApp} from '@inertiajs/vue3';
 import {resolvePageComponent} from 'laravel-vite-plugin/inertia-helpers';
 import {ZiggyVue} from '../../vendor/tightenco/ziggy';
 import ConfirmationService from 'primevue/confirmationservice';
+import i18n from './i18n';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -24,6 +25,7 @@ createInertiaApp({
                 }
             })
             .use(ZiggyVue)
+            .use(i18n)
             .use(ConfirmationService)
 
             .mount(el);

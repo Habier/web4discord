@@ -6,6 +6,7 @@ import {Button} from "primevue";
 import Textarea from 'primevue/textarea';
 import {useConfirm} from "primevue/useconfirm";
 import {ref} from "vue";
+import i18n from "@/i18n";
 
 const confirm = useConfirm();
 
@@ -21,16 +22,16 @@ const trashLoading = ref(-1);
 
 function handleDelete(id) {
     confirm.require({
-        message: 'Are you sure you want to proceed?',
-        header: 'Confirmation',
+        message: i18n.global.t("Are you sure you want to proceed?"),
+        header: i18n.global.t("Confirmation"),
         icon: 'pi pi-exclamation-triangle',
         rejectProps: {
-            label: 'Cancel',
+            label: i18n.global.t("Cancel"),
             severity: 'secondary',
             outlined: true
         },
         acceptProps: {
-            label: 'Accept'
+            label: i18n.global.t("Accept")
         },
         accept: () => {
             this.trashLoading = id;
@@ -44,7 +45,7 @@ function handleDelete(id) {
 }
 
 function submit() {
-    form.post(route('retorts.store'), form);
+    form.post(route('retorts.store'));
     form.reset();
 }
 
@@ -59,13 +60,13 @@ function handleDownload() {
     <AppLayout title="Retorts">
         <div class="row mx-auto p-6">
             <form @submit.prevent="submit">
-                <label for="message" class="block text-gray-700 dark:text-gray-300 mb-2">Question</label>
+                <label for="message" class="block text-gray-700 dark:text-gray-300 mb-2">{{$t("Question")}}</label>
                 <Textarea class="w-full" v-model="form.question" rows="5" cols="30"/>
                 <div class="text-danger" v-if="form.errors.question">{{ form.errors.question }}</div>
 
                 <div class="flex justify-center items-center space-x-4">
-                    <Button label="Submit" class="mr-4" type="submit" :loading="form.processing"/>
-                    <Button as="a" label="Download" :href="route('retorts.download')" target="_blank" rel="noopener"/>
+                    <Button :label='$t("Submit")' class="mr-4" type="submit" :loading="form.processing"/>
+                    <Button as="a" :label='$t("Download")' :href="route('retorts.download')" target="_blank" rel="noopener"/>
                 </div>
             </form>
 

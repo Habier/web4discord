@@ -51,13 +51,13 @@ const logout = () => {
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+                                    {{$t("Dashboard")}}
                                 </NavLink>
                                 <AutoNavLink target-route="retorts.index">
-                                    Retorts
+                                    {{$t("Retorts")}}
                                 </AutoNavLink>
                                 <AutoNavLink target-route="polls.index">
-                                    Polls
+                                    {{$t("Polls")}}
                                 </AutoNavLink>
                             </div>
                         </div>
