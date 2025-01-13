@@ -11,6 +11,7 @@ class Poll extends Model
     use HasFactory;
 
     public $fillable = ['title', 'description'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -24,5 +25,10 @@ class Poll extends Model
     public function votes()
     {
         return $this->hasMany(Vote::class);
+    }
+
+    public function userAlreadyVoted(User $user): bool
+    {
+        return (boolean)$this->votes()->where('user_id', $user->id)->count();
     }
 }

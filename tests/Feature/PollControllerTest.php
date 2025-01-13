@@ -94,10 +94,15 @@ class PollControllerTest extends \Tests\TestCase
 
     public function test_delete_poll()
     {
+        $originalUser = User::factory()->create();
         $this->actingAs($user = User::factory()->create());
 
-        $poll = Poll::factory()->hasOptions(4)->create(['user_id' => $user->id]);
+        //Check that only the author can delete de the poll
+        $poll = Poll::factory()->hasOptions(4)->create(['user_id' => $originalUser->id]);
+        $this->delete(route('polls.destroy', $poll))
+            ->assertStatus(403);
 
+        $poll = Poll::factory()->hasOptions(4)->create(['user_id' => $user->id]);
         $this->delete(route('polls.destroy', $poll))
             ->assertRedirect(route('polls.index'));
 
