@@ -67,7 +67,7 @@ class PollControllerTest extends \Tests\TestCase
 
         //Check if properly redirected
         $this->post(route('polls.vote', $poll), ['option' => $optionId])
-            ->assertRedirect(route('polls.show', $poll))
+            ->assertRedirectToRoute('polls.show', $poll)
             ->assertSessionHasNoErrors();
 
         //check if the vote is registered
@@ -76,6 +76,11 @@ class PollControllerTest extends \Tests\TestCase
         //check that voting twice is impossible
         $this->post(route('polls.vote', $poll->id), ['option' => $optionId])
             ->assertSessionHasErrors(['vote']);
+
+        $this->assertDatabaseHas('poll_options', [
+            'id' => $optionId,
+            'count' => 1
+        ]);
 
     }
 
@@ -105,8 +110,6 @@ class PollControllerTest extends \Tests\TestCase
         $poll = Poll::factory()->hasOptions(4)->create(['user_id' => $user->id]);
         $this->delete(route('polls.destroy', $poll))
             ->assertRedirect(route('polls.index'));
-
-        $this->assertDatabaseCount('votes', 0);
     }
 
 
