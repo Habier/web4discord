@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PollRequest;
 use App\Http\Requests\VoteRequest;
 use App\Models\Poll;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use src\Services\PollService;
 

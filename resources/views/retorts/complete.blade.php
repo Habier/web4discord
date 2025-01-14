@@ -31,7 +31,7 @@
 
 
           <?=$card ?>
-            
+
         </div>
     </div>
 @endsection

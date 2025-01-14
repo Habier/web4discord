@@ -5,8 +5,6 @@ namespace Database\Seeders;
 use Database\Seeders\dev\DevSeeder;
 use Illuminate\Database\Seeder;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
 class DatabaseSeeder extends Seeder
 {
     /**
