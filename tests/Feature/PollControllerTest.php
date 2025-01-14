@@ -7,7 +7,6 @@ use App\Models\Poll;
 use App\Models\PollOption;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Artisan;
 use Inertia\Testing\AssertableInertia;
 
 class PollControllerTest extends \Tests\TestCase
