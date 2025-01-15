@@ -293,7 +293,7 @@ const logout = () => {
             </header>
 
             <!-- Page Content -->
-            <main>
+            <main class="p-4">
                 <ConfirmDialog></ConfirmDialog>
                 <slot />
             </main>

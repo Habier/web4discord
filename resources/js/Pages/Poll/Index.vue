@@ -16,8 +16,8 @@ function onPageChange(event) {
 </script>
 
 <template>
-    <AppLayout title="Polls">
-        <div class="w-full">
+    <AppLayout :title='$t("Polls")'>
+        <div class="w-full flex justify-center">
             <Button as="a" :label='$t("Create")' :href="route('polls.create')" />
         </div>
         <DataTable :value="polls.data"

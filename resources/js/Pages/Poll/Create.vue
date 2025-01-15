@@ -27,7 +27,7 @@ function handleAddOption() {
 </script>
 
 <template>
-    <AppLayout title="Create poll">
+    <AppLayout :title='$t("Create Poll")'>
         <h1>{{$t("Create a new Poll")}}</h1>
 
         <div id="poll_options">
