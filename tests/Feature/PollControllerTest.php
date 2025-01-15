@@ -7,7 +7,6 @@ use App\Models\Poll;
 use App\Models\PollOption;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Artisan;
 use Inertia\Testing\AssertableInertia;
 
 class PollControllerTest extends \Tests\TestCase
@@ -67,7 +66,7 @@ class PollControllerTest extends \Tests\TestCase
 
         //Check if properly redirected
         $this->post(route('polls.vote', $poll), ['option' => $optionId])
-            ->assertRedirect(route('polls.show', $poll))
+            ->assertRedirectToRoute('polls.show', $poll)
             ->assertSessionHasNoErrors();
 
         //check if the vote is registered
@@ -76,6 +75,11 @@ class PollControllerTest extends \Tests\TestCase
         //check that voting twice is impossible
         $this->post(route('polls.vote', $poll->id), ['option' => $optionId])
             ->assertSessionHasErrors(['vote']);
+
+        $this->assertDatabaseHas('poll_options', [
+            'id' => $optionId,
+            'count' => 1
+        ]);
 
     }
 
@@ -94,14 +98,17 @@ class PollControllerTest extends \Tests\TestCase
 
     public function test_delete_poll()
     {
+        $originalUser = User::factory()->create();
         $this->actingAs($user = User::factory()->create());
 
-        $poll = Poll::factory()->hasOptions(4)->create(['user_id' => $user->id]);
+        //Check that only the author can delete de the poll
+        $poll = Poll::factory()->hasOptions(4)->create(['user_id' => $originalUser->id]);
+        $this->delete(route('polls.destroy', $poll))
+            ->assertStatus(403);
 
+        $poll = Poll::factory()->hasOptions(4)->create(['user_id' => $user->id]);
         $this->delete(route('polls.destroy', $poll))
             ->assertRedirect(route('polls.index'));
-
-        $this->assertDatabaseCount('votes', 0);
     }
 
 
