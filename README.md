@@ -103,7 +103,7 @@ Use the card-making system to create and categorize cards for Last Retort. Expor
 
 ## Acknowledgments
 - [Laravel Community](https://laravel.com/) for extensive documentation and support.
-- [Last Retort](https://example.com) for inspiration and game mechanics.
+- [Last Retort](https://steamcommunity.com/sharedfiles/filedetails/?id=1147131124) for inspiration and game mechanics.
 
 ---
 For any questions or issues, feel free to open an [issue](https://github.com/Habier/web4discord/issues).
