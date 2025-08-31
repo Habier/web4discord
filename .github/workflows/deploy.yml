@@ -1,17 +1,24 @@
 name: deploy
 
 on:
-  push:
-    branches: [ master ]
+  workflow_run:
+    workflows: [ "Laravel" ]
+    types:
+      - completed
+    branches:
+      - master
 
 concurrency: production_environment
 
 jobs:
   deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
