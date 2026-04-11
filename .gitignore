@@ -23,3 +23,11 @@ yarn-error.log
 /.zed
 
 # Project exclude paths
+
+**/caddy
+frankenphp
+frankenphp-worker.php
+
+**/caddy
+frankenphp
+frankenphp-worker.php
