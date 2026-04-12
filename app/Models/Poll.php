@@ -29,6 +29,6 @@ class Poll extends Model
 
     public function userAlreadyVoted(User $user): bool
     {
-        return (boolean)$this->votes()->where('user_id', $user->id)->count();
+        return (bool)$this->votes()->where('user_id', $user->id)->count();
     }
 }
