@@ -50,3 +50,11 @@ task('npm-build', function () {
 });
 
 after('deploy:vendors', 'npm-build');
+
+// Restart FrankenPHP via Octane
+task('frankenphp:restart', function () {
+    cd('{{release_path}}');
+    run('{{bin/php}} artisan octane:reload');
+});
+
+after('deploy:success', 'frankenphp:restart');
