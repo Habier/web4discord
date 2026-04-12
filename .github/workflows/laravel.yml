@@ -16,7 +16,7 @@ jobs:
           php-version: '8.2'
           coverage: none
           cache: composer
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: Install Dependencies
