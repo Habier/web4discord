@@ -51,10 +51,14 @@ task('npm-build', function () {
 
 after('deploy:vendors', 'npm-build');
 
-// Restart FrankenPHP via Octane
-task('frankenphp:restart', function () {
+// Laravel Octane Hooks
+
+task('reload:services', function () {
     cd('{{release_path}}');
-    run('{{bin/php}} artisan octane:reload');
+    run('php artisan reload');
 });
 
-after('deploy:success', 'frankenphp:restart');
+// Deployment hooks with Octane
+
+after('deploy:publish', 'reload:services');
+after('deploy:failed', 'deploy:unlock');
