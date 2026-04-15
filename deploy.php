@@ -49,7 +49,7 @@ task('npm-build', function () {
     run('npm run build');
 });
 
-after('deploy:vendors', 'npm-build');
+after('deploy:symlink', 'npm-build');
 
 // Laravel Octane Hooks
 
